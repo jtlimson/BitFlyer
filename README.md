@@ -28,7 +28,7 @@ The recommended way to install jtlimson/BitFlyer is through
 [Composer](http://getcomposer.org).
 
 ```bash
-composer require jtlimson/bitflyer
+composer require jtlimson/bitflyer-laravel
 ```
 add environment setting `.env`
 ```
