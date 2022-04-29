@@ -24,24 +24,32 @@ php-xml
 
 ## Installing jtlimson/BitFlyer
 
-The recommended way to install jtlimson/BitFlyer is through
-[Composer](http://getcomposer.org).
-
-```bash
-composer require jtlimson/bitflyer-laravel
-```
 add environment setting `.env`
 ```
 BITFLYER_LABEL=Assets_API_Key_Auth
 BITFLYER_API_KEY=
 BITFLYER_API_SECRET=
 ```
+
 After installing, you need to add provider in `config\app.php
 ```php
 'providers' => [
   ... some other providers ...
   jtlimson\BitFlyer\Providers\BitFlyerProvider::class,
 ],
+```
+
+Update composer.json for psr-4 namespace mapping
+```json
+ "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/",
+            ++ "jtlimson\\BitFlyer\\": replace folder location + "jtlimson/BitFlyer/src/"
+        }
+    },
+
 ```
 
 
