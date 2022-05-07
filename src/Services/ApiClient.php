@@ -39,7 +39,7 @@ abstract class ApiClient
         return $this->last_request;
     }
 
-    private function privatePost(string $api, array $post_data = null)
+    protected function privatePost(string $path, array $post_data = null)
     {
         $post_data = array_filter($post_data, function($v){
             return $v !== null;
@@ -47,22 +47,22 @@ abstract class ApiClient
         
         $timestamp = time();
         $method = BitFlyerApi::POST;
-        #$body = !empty($post_data) ? json_encode($post_data, JSON_FORCE_OBJECT) : '';
-        $url = self::getURL($api, $post_data);
-        $text = $timestamp . $method . $api . $url;
+        $body = !empty($post_data) ? json_encode($post_data, JSON_FORCE_OBJECT) : '';
+       
+        $url = self::getURL($path);
+        $text = $timestamp . $method . $path . $body;
+
         $sign = hash_hmac('sha256', $text, $this->api_secret);
-        
+      
         $options = array(
-            'Content-Type' => 'application/json',
             'ACCESS-KEY' => $this->api_key,
             'ACCESS-TIMESTAMP' => $timestamp,
             'ACCESS-SIGN' => $sign,
+            'Content-Type' => 'application/json',
         );
         
-        $url = self::getURL($api);
-        
-        $request = new Request($method, $url, $options);
-    
+        $request = new Request($method, $url, $options, $body);
+
         return $this->executeRequest($request);
     }
 

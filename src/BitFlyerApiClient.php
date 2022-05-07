@@ -357,6 +357,7 @@ class BitFlyerApiClient extends ApiClient
      * @throws Exception
      * @noinspection PhpMissingReturnTypeInspection
      */
+    //https://api.bitflyer.com/docs/api#send-a-new-order
     public function meSendChildOrder(string $product_code, string $child_order_type, string $side, int $price, float $size,
                                      int $minute_to_expire = null, string $time_in_force = null)
     {
